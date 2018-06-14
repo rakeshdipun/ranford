@@ -3,11 +3,13 @@ package pagelibrary.com.ranford;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.Reporter;
-import org.testng.annotations.Parameters;
+
 
 import TestBase.Base;
+import Utility.Library;
 import Utility.Validation;
 import excel.excel_class;
 
@@ -15,10 +17,19 @@ public class reposetry extends Base {
 
 	WebDriver driver;
 	
-	public void launch()
+	public void launch(String brow)
 	{
-		System.setProperty(config("firefoxname"),config("firefoxpath"));
-		driver=new FirefoxDriver();
+		if(brow.contains("firefox"))
+		{
+			System.setProperty(config("firefoxname"),config("firefoxpath"));
+			driver=new FirefoxDriver();
+		}
+		else if(brow.contains("chrome"))
+		{
+			System.setProperty(config("chromename"),config("chromepath"));
+			driver=new ChromeDriver();
+		}
+		
 		driver.get(config("bankurl"));
 		driver.manage().timeouts().implicitlyWait(10,TimeUnit.SECONDS);
 		driver.manage().window().maximize();
@@ -30,6 +41,8 @@ public class reposetry extends Base {
 		else
 		{
 			Reporter.log("Test is failed");
+			
+			Library.attachement("launch");
 			
 		}
 	}
@@ -44,6 +57,7 @@ public class reposetry extends Base {
 		}
 		else{
 			Reporter.log("Test is failed");
+			Library.screenshort("login");
 		}
 	}
 	public void branches(){

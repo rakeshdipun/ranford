@@ -1,8 +1,8 @@
 package pagelibrary.com.ranford;
 
-import org.testng.annotations.BeforeSuite;
+//import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.BeforeTest;
-import org.testng.annotations.DataProvider;
+//import org.testng.annotations.DataProvider;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
@@ -10,10 +10,12 @@ import excel.excel_class;
 
 public class test_excute extends reposetry {
 	
+	@Parameters({"browser"})
 	@BeforeTest
-	public void verify_launch()
+	public void verify_launch(String browser)
 	{
-		launch();
+		launch(browser);
+		
 	}
 
 @Test(priority=1)
